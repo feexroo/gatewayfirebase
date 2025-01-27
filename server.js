@@ -8,8 +8,14 @@ const app = express();
 const PORT = process.env.PORT || 3000; // Port akan otomatis ditentukan oleh Render
 
 // Firebase konfigurasi
-const FIREBASE_URL = 'https://<YOUR_FIREBASE_PROJECT>.firebaseio.com'; // Ganti dengan URL Firebase Anda
-const FIREBASE_SECRET = '<YOUR_FIREBASE_SECRET>'; // Ganti dengan secret code Firebase Anda
+const FIREBASE_URL = process.env.FIREBASE_URL; // Ganti dengan URL Firebase Anda
+const FIREBASE_SECRET = process.env.FIREBASE_SECRET; // Ganti dengan secret code Firebase Anda
+
+// Periksa apakah Firebase URL dan Secret diatur
+if (!FIREBASE_URL || !FIREBASE_SECRET) {
+  console.error('FIREBASE_URL atau FIREBASE_SECRET tidak diatur di Environment Variables.');
+  process.exit(1); // Keluar jika konfigurasi tidak lengkap
+}
 
 // Middleware
 app.use(bodyParser.json());
